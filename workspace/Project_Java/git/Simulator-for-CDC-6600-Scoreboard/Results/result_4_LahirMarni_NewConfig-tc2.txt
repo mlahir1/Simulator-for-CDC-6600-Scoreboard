@@ -1,0 +1,38 @@
+                      INSTRUCTION                      FETCH      ISSUE      READ       EXEC       WRITE       RAW WAW STRUCT
+           LI         R1         16                     7          8          9          10         11          N   N    N
+           LI         R2         296                    8          12         13         14         15          N   N    Y
+           LI         R4         256                    15         16         17         18         19          N   N    N
+QQ:        LW         R3         0(R4)                  16         17         20         35         36          Y   N    N
+           L.D        F1         32(R4)                 23         37         38         57         58          N   N    Y
+           L.D        F2         64(R4)                 37         59         60         74         75          N   N    Y
+           ADD.D      F4         F1         F2          59         60         76         81         82          Y   N    N
+           SUB.D      F5         F2         F1          60         61         76         81         82          Y   N    N
+           MUL.D      F6         F1         F5          79         80         83         103        104         Y   N    N
+           DADD       R4         R2         R1          80         81         82         83         84          N   N    N
+           DSUBI      R1         R1         8           87         88         89         90         91          N   N    N
+           ADD.D      F7         F2         F6          88         89         105        110        111         Y   N    N
+           ADD.D      F6         F1         F7          95         105        112        117        118         Y   Y    N
+           SW         R4         -24(R2)                105        106        107        124        125         N   N    N
+           S.D        F7         32(R4)                 112        126        127        146        147         N   N    Y
+           BNE        R1         R3         QQ          126        127        128                               N   N    N
+           SW         R2         0(R4)                  133        148                                          N   N    Y
+QQ:        LW         R3         0(R4)                  148        149        150        175        176         N   N    N
+           L.D        F1         32(R4)                 149        150        151        153        154         N   N    N
+           L.D        F2         64(R4)                 150        155        156        188        189         N   N    Y
+           ADD.D      F4         F1         F2          155        156        190        195        196         Y   N    N
+           SUB.D      F5         F2         F1          156        157        190        195        196         Y   N    N
+           MUL.D      F6         F1         F5          157        158        197        217        218         Y   N    N
+           DADD       R4         R2         R1          158        159        160        161        162         N   N    N
+           DSUBI      R1         R1         8           159        163        164        165        166         N   N    Y
+           ADD.D      F7         F2         F6          163        197        219        224        225         Y   N    Y
+           ADD.D      F6         F1         F7          197        219        226        231        232         Y   Y    N
+           SW         R4         -24(R2)                219        220        221        234        235         N   N    N
+           S.D        F7         32(R4)                 220        236        237        251        252         N   N    Y
+           BNE        R1         R3         QQ          236        237        238                               N   N    N
+           SW         R2         0(R4)                  237        253        254        284        285         N   N    Y
+           HLT                                          253        254                                          N   N    N
+           HLT                                          260                                                     N   N    N
+Total number of access requests for instruction cache: 33
+Number of instruction cache hits: 23
+Total number of access requests for data cache: 17
+Number of data cache hits: 7
